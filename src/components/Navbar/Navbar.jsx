@@ -5,7 +5,7 @@ import Plus from '../../img/plus.png'
 
 const Navbar = () => {
   return (
-    <div className='container'>
+    <div className='container my-3 '>
         <nav className="navbar navbar-expand-lg bg-body-tertiary rounded">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">

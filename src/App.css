@@ -6,7 +6,7 @@
 }
 
 .app {
-  background: linear-gradient(45deg, #4b0082, #8b0000) !important;
+  background: black;
   width: 100vw;
   height: 100vh;
   display: flex;

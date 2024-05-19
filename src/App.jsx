@@ -10,10 +10,10 @@ function App() {
         <Navbar />
       </div>
       <Hero />
-      <div className="sidebar bg-warning">Sidebar</div>
-      <div className="main-content bg-dark">Main Content</div>
-      <div className="rightSide bg-secondary">Right Side</div>
-      <div className="footer bg-danger">Footer</div>
+      <div className="sidebar">Sidebar</div>
+      <div className="main-content">Main Content</div>
+      <div className="rightSide">Right Side</div>
+      <div className="footer">Footer</div>
     </div>
   );
 }
