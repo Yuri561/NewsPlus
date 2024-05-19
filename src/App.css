@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "PT Serif", serif;
+}
+
+.app {
+  background: linear-gradient(45deg, #4b0082, #8b0000) !important;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.Navbar-container {
+  flex: 0 0 auto; /* Navbar height does not shrink or grow */
+}
+
+.sidebar, .footer, .main-content, .rightSide {
+  flex: 1 0 auto; /* These components take up available space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
