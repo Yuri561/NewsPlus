@@ -43,8 +43,8 @@ const cardsData = [
 const GlobalNews = () => {
   return (
     <>
-      <div className="container-fluid my-3">
-        <div className="row mb-4">
+      <div className="container-fluid ">
+        <div className="row mb-1">
           <div className="col-12 text-center text-light">
             <h1 className="section-title text-light text-center">Experience the Pulse of the World</h1>
             <p className="section-description">

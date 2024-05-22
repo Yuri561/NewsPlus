@@ -65,4 +65,19 @@
     h2, p {
         font-size: 12px;
     }
+    .container-fluid{
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+}
+@media screen and (max-width: 430px){
+    .hero-container{
+        margin: 0;
+    }
+}
+@media screen and (max-width: 768px){
+    h2, p {
+        font-size: 12px;
+    }
 }

@@ -19,8 +19,9 @@ import Banner8 from '../../img/banner8.jpg';
 
 const Hero = () => {
 	return (
-		<div className='container-fluid my-4 p-3'>
-			<h1 className='text-center mb-5 mt-3'>Discover Stories That Matter</h1>
+		<div className="hero-wrapper w-100 justify-content-center">
+		<div className='container-fluid mt-2'>
+			<h1 className='text-center mt-3'>Discover Stories That Matter</h1>
 			<Swiper
 				direction={'horizontal'}
 				pagination={{
@@ -40,7 +41,7 @@ const Hero = () => {
 				].map((banner, index) => (
 					<SwiperSlide key={index}>
 						<div className='slide-content'>
-							<img src={banner.img} alt='' className='slide-image' style={{ width: '100%', height: '100%' }} />
+							<img src={banner.img} alt='' className='slide-image' style={{ width: '100%' }} />
 							<div className='text-content'>
 								<h2>{banner.title}</h2>
 								<p>{banner.desc}</p>
@@ -50,6 +51,8 @@ const Hero = () => {
 					</SwiperSlide>
 				))}
 			</Swiper>
+		</div>
+
 		</div>
 	);
 };
