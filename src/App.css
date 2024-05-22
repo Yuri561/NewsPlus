@@ -13,15 +13,36 @@
   flex-direction: column;
 }
 
+.bar-container{
+  background: linear-gradient(135deg, #000428, #000710, #0d0057);
+
+}
+
+
+.hero-container{
+  background: linear-gradient(135deg, #061161, #000710, #2a0845);
+
+}
+
 .Navbar-container {
   flex: 0 0 auto; /* Navbar height does not shrink or grow */
 }
+.sidebar{
+  background: linear-gradient(135deg, #000428, #004e92);
+}
+.main-content{
+  background: linear-gradient(135deg, #000428, #000710, #0d0057);
 
+}
 .sidebar, .footer, .main-content, .rightSide {
   flex: 1 0 auto; /* These components take up available space */
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
+}
+
+.rightSide{
+  background: linear-gradient(135deg, #200122, black, #1d2671);
 }
 

@@ -1,0 +1,17 @@
+nav{
+    color: white !important;
+}
+.dropdown-item{
+    color: black important;
+}
+a {
+    color: rgb(255, 251, 251) !important;
+}
+
+@media screen and (max-width: 768px) {
+    .container-fluid{
+        gap: 18rem;
+
+    }
+
+}

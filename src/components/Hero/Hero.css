@@ -1,7 +1,6 @@
 .hero-container {
    
     padding: 20px;
-    border-radius: 10px;
 }
 
 .mySwiper {
@@ -42,7 +41,7 @@
     text-align: center;
     color: white;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for better text readability */
+    background: linear-gradient(135deg, #302b63, #000710, #24243e);
     padding: 20px;
     border-radius: 10px;
 }
@@ -59,4 +58,11 @@
 
 .slide-button:hover {
     background-color: #e5533d; /* Darker tomato color */
+}
+
+
+@media screen and (max-width: 768px){
+    h2, p {
+        font-size: 12px;
+    }
 }

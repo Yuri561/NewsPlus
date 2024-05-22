@@ -2,18 +2,35 @@ import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
+import GlobalNews from './components/GlobalNews/GlobalNews';
+import CountryNewsSearch from './components/SearchNews/SearchNews';
+import GetStarted from './components/GetStarted/GetStarted';
+import Footer from './components/Footer/Footer';
 
 function App() {
   return (
     <div className="app">
-      <div className="Navbar-container">
+      <div className="bar-container">
         <Navbar />
-      </div>
+
+        </div>
+    
+<div className="hero-container">  
       <Hero />
-      <div className="sidebar">Sidebar</div>
-      <div className="main-content">Main Content</div>
-      <div className="rightSide">Right Side</div>
-      <div className="footer">Footer</div>
+
+</div>
+      <div className="main-content">
+      <GlobalNews/>
+      </div>
+      <div className="sidebar">
+        <CountryNewsSearch/>
+      </div>
+      <div className="rightSide">
+        <GetStarted/>
+      </div>
+      <div className="footer">
+        <Footer/>
+      </div>
     </div>
   );
 }
