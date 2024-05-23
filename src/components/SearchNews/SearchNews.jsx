@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SearchNews.css';
-import axios from 'axios';
+import axios from 'https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js';
 
 const countriesData = [
   { name: 'Argentina', code: 'ar', region: 'Americas' },
