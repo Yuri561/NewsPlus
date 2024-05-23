@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SearchNews.css';
+import axios from 'axios';
 
 const countriesData = [
   { name: 'Argentina', code: 'ar', region: 'Americas' },
@@ -55,19 +56,20 @@ const countriesData = [
   { name: 'United Arab Emirates', code: 'ae', region: 'Asia' },
   { name: 'United Kingdom', code: 'gb', region: 'Europe' },
   { name: 'United States', code: 'us', region: 'Americas' },
-  { name: 'Venezuela', code: 've', region: 'Americas' }
+  { name: 'Venezuela', code: 've', region: 'Americas' },
 ];
 
 const regions = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 const categories = ['general', 'business', 'entertainment', 'health', 'science', 'sports', 'technology'];
 
-function CountryNewsSearch() {
+const CountryNewsSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('All');
   const [filteredCountries, setFilteredCountries] = useState(countriesData);
   const [news, setNews] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('general');
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     filterCountries();
@@ -83,18 +85,30 @@ function CountryNewsSearch() {
     setFilteredCountries(filtered);
   };
 
-  const fetchNews = async () => {
-    if (selectedCountry) {
-      const country = countriesData.find(country => country.name === selectedCountry).code;
-      const response = await fetch(`https://newsapi.org/v2/top-headlines?country=${country}&category=${selectedCategory}&pageSize=6&apiKey=e025744ae9f64199a9df9238890ecb3b`);
-      const data = await response.json();
-      console.log('Response data:', data);
-      setNews(data.articles); // Only take the first 6 articles
+const fetchNews = async () => {
+  if (selectedCountry) {
+    try {
+      const response = await axios.get(`https://api.thenewsapi.com/v1/news/top?`, {
+        params: {
+          api_token: 'Vf7CI4z38vR3YKeA0c9MnoLt0ejSUkKSGWwpC2Xx',
+          country: selectedCountry.toLowerCase(),
+          category: selectedCategory,
+        },
+      });
+      const data = response.data;
+      if (data.status !== 'success') {
+        throw new Error(data.message || 'Error fetching news');
+      }
+      setNews(data.results);
+      setError(null);
+    } catch (error) {
+      setError(error.message);
+      setNews(null);
     }
-  };
-
+  }
+};
   const handleCountryClick = (country) => {
-    setSelectedCountry(country.name);
+    setSelectedCountry(country.code);
   };
 
   const handleSubmit = () => {
@@ -107,7 +121,7 @@ function CountryNewsSearch() {
   };
 
   return (
-    <div className="search-wrapper my-2 w-100 " id='GetNews'>
+    <div className="search-wrapper my-2 w-100" id='GetNews'>
       <div className="container-fluid search-news w-100">
         <div className="search-panel">
           <h1 className='text-light text-center'>Search World News</h1>
@@ -136,8 +150,8 @@ function CountryNewsSearch() {
           <button onClick={handleSubmit}>Submit</button>
           <div>
             <ul className="country-list">
-              {filteredCountries.slice(0,9).map(country => (
-                <li key={country.name} onClick={() => handleCountryClickAndSubmit(country)}>
+              {filteredCountries.slice(0, 9).map(country => (
+                <li key={country.code} onClick={() => handleCountryClickAndSubmit(country)}>
                   {country.name}
                 </li>
               ))}
@@ -148,23 +162,27 @@ function CountryNewsSearch() {
           {selectedCountry && (
             <div>
               <h2>Here is what's happening in {selectedCountry} in {selectedCategory}.</h2>
-              {news ? (
-                <div className="news-cards">
-                  {news.map((article, index) => (
-                    <div key={index} className="news-card">
-                      <a href={article.url} target="_blank" rel="noopener noreferrer">
-                        <img
-                          src={article.urlToImage || 'default-image-url.jpg'} // Use a default image if urlToImage is null
-                          alt={article.title}
-                          className="news-image"
-                        />
-                        <div className="news-title">{article.title}</div>
-                      </a>
-                    </div>
-                  ))}
-                </div>
+              {error ? (
+                <p className="error">{error}</p>
               ) : (
-                <p className="loading">Loading news...</p>
+                news ? (
+                  <div className="news-cards">
+                    {news.map((article, index) => (
+                      <div key={index} className="news-card">
+                        <a href={article.url} target="_blank" rel="noopener noreferrer">
+                          <img
+                            src={article.image || 'default-image-url.jpg'}
+                            alt={article.title}
+                            className="news-image"
+                          />
+                          <div className="news-title">{article.title}</div>
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="loading">Loading news...</p>
+                )
               )}
             </div>
           )}

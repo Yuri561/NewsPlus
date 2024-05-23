@@ -2,8 +2,81 @@
    
     padding: 20px;
 }
+.hero-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-.mySwiper {
+.container-fluid {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+.hero-swipe {
+  width: 100%;
+  height: 500px !important; /* Adjust height as needed */
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.slide-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.text-content {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.text-content h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.text-content p {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.slide-button {
+  background-color: #5a73d7;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.slide-button:hover {
+  background-color: #3a53a7;
+}
+
+
+.hero-swipe {
     width: 100%;
     height: 500px; /* Fixed height for all slides */
     border-radius: 10px;
@@ -31,19 +104,19 @@
     display: block;
     -o-object-fit: cover;
        object-fit: cover;
+       
+
+
 }
 
 .text-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: white;
-    z-index: 1;
-    background: linear-gradient(135deg, #302b63, #000710, #24243e);
-    padding: 20px;
-    border-radius: 10px;
+  
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  font-weight: 500;
+  background: transparent;
 }
 
 .slide-button {

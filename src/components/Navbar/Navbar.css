@@ -14,6 +14,8 @@ a, li {
   padding: 0;
 }
 
+
+
 @media (max-width: 1200px) {
   .navbar-brand {
     font-size: 1.5rem;
@@ -27,10 +29,28 @@ a, li {
     width: 100%;
   }
 }
+.nav-wrapper {
+  width: 100%;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
 
 @media (max-width: 768px) {
   .nav-wrapper {
     flex-direction: column;
+  }
+
+  .nav-content {
+    flex-direction: row !important;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 1rem;
   }
 
   .navbar {
@@ -40,20 +60,21 @@ a, li {
 
   .navbar-nav {
     flex-direction: column;
+    align-items: center;
   }
 
   .form-control {
     width: 100%;
   }
+
+  .navbar-toggler {
+    margin-left: auto;
+  }
 }
 
 @media (max-width: 576px) {
 
-    .container-fluid{
-        display: flex;
-        flex-direction: row;
-        gap: 30px;
-    }
+    
   .navbar-brand img {
     width: 20px;
     height: 16px;
@@ -65,5 +86,8 @@ a, li {
 
   .navbar-nav .nav-item .nav-link {
     font-size: 0.875rem;
+  }
+  .nav-content{
+    
   }
 }
