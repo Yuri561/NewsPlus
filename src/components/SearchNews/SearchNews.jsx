@@ -85,30 +85,34 @@ const CountryNewsSearch = () => {
     setFilteredCountries(filtered);
   };
 
-const fetchNews = async () => {
-  if (selectedCountry) {
-    try {
-      const response = await axios.get(`https://api.thenewsapi.com/v1/news/top?`, {
-        params: {
-          api_token: 'Vf7CI4z38vR3YKeA0c9MnoLt0ejSUkKSGWwpC2Xx',
-          country: selectedCountry.toLowerCase(),
-          category: selectedCategory,
-        },
-      });
-      const data = response.data;
-      if (data.status !== 'success') {
-        throw new Error(data.message || 'Error fetching news');
+  const fetchNews = async () => {
+    if (selectedCountry) {
+      try {
+        const response = await axios.get(`https://api.thenewsapi.com/v1/news/top`, {
+          params: {
+            api_token: 'Vf7CI4z38vR3YKeA0c9MnoLt0ejSUkKSGWwpC2Xx',
+            country: selectedCountry,
+            category: selectedCategory,
+          },
+        });
+        const data = response.data;
+        if (data.meta && data.meta.returned > 0) {
+          setNews(data.data);
+          setError(null);
+        } else {
+          throw new Error('No news found');
+        }
+      } catch (error) {
+        setError(error.message);
+        setNews(null);
       }
-      setNews(data.results);
-      setError(null);
-    } catch (error) {
-      setError(error.message);
-      setNews(null);
     }
-  }
-};
+  };
+
   const handleCountryClick = (country) => {
     setSelectedCountry(country.code);
+    setNews(null);
+    setError(null);
   };
 
   const handleSubmit = () => {
@@ -161,21 +165,23 @@ const fetchNews = async () => {
         <div className="news-panel">
           {selectedCountry && (
             <div>
-              <h2>Here is what's happening in {selectedCountry} in {selectedCategory}.</h2>
+              <h2>Here is what's happening in {countriesData.find(c => c.code === selectedCountry)?.name} in {selectedCategory}.</h2>
               {error ? (
                 <p className="error">{error}</p>
               ) : (
                 news ? (
                   <div className="news-cards">
                     {news.map((article, index) => (
-                      <div key={index} className="news-card">
+                      <div key={article.uuid} className="news-card">
                         <a href={article.url} target="_blank" rel="noopener noreferrer">
                           <img
-                            src={article.image || 'default-image-url.jpg'}
+                            src={article.image_url || 'default-image-url.jpg'}
                             alt={article.title}
                             className="news-image"
                           />
                           <div className="news-title">{article.title}</div>
+                          <p className="news-description">{article.description}</p>
+                          <p className="news-source">{article.source}</p>
                         </a>
                       </div>
                     ))}
@@ -190,6 +196,6 @@ const fetchNews = async () => {
       </div>
     </div>
   );
-}
+};
 
 export default CountryNewsSearch;
