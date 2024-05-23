@@ -62,6 +62,7 @@ const countriesData = [
 const regions = ['All', 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
 const categories = ['general', 'business', 'entertainment', 'health', 'science', 'sports', 'technology'];
 
+
 const CountryNewsSearch = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('All');
@@ -84,29 +85,32 @@ const CountryNewsSearch = () => {
     }
     setFilteredCountries(filtered);
   };
+const fetchNews = async () => {
+  if (selectedCountry) {
+    try {
+      console.log(`Fetching news for country: ${selectedCountry}, category: ${selectedCategory}`);
+      const response = await axios.get(`https://api.thenewsapi.com/v1/news/top`, {
+        params: {
+          api_token: 'Vf7CI4z38vR3YKeA0c9MnoLt0ejSUkKSGWwpC2Xx',
+          country: selectedCountry.toLowerCase(),
+          category: selectedCategory,
+        },
+      });
+      console.log('API response:', response);
 
-  const fetchNews = async () => {
-    if (selectedCountry) {
-      try {
-        const response = await axios.get(`https://api.thenewsapi.com/v1/news/top`, {
-          params: {
-            api_token: 'Vf7CI4z38vR3YKeA0c9MnoLt0ejSUkKSGWwpC2Xx',
-            country: selectedCountry.toLowerCase(),
-            category: selectedCategory,
-          },
-        });
-        const data = response.data;
-        if (data.status !== 'success') {
-          throw new Error(data.message || 'Error fetching news');
-        }
-        setNews(data.results);
+      if (response.data && response.data.data && response.data.data.length > 0) {
+        setNews(response.data.data);
         setError(null);
-      } catch (error) {
-        setError(error.message);
-        setNews(null);
+      } else {
+        throw new Error('No news articles found');
       }
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      setError(error.message);
+      setNews(null);
     }
-  };
+  }
+};
 
   const handleCountryClick = (country) => {
     setSelectedCountry(country.code);
@@ -172,7 +176,7 @@ const CountryNewsSearch = () => {
                       <div key={index} className="news-card">
                         <a href={article.url} target="_blank" rel="noopener noreferrer">
                           <img
-                            src={article.image || 'default-image-url.jpg'}
+                            src={article.image_url || 'default-image-url.jpg'}
                             alt={article.title}
                             className="news-image"
                           />
