@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './SearchNews.css';
-import axios from 'https://cdn.jsdelivr.net/npm/axios@1.7.2/dist/axios.min.js';
+
 
 const countriesData = [
   { name: 'Argentina', code: 'ar', region: 'Americas' },
@@ -91,17 +91,16 @@ const CountryNewsSearch = () => {
         const response = await axios.get(`https://api.thenewsapi.com/v1/news/top`, {
           params: {
             api_token: 'Vf7CI4z38vR3YKeA0c9MnoLt0ejSUkKSGWwpC2Xx',
-            country: selectedCountry,
+            country: selectedCountry.toLowerCase(),
             category: selectedCategory,
           },
         });
         const data = response.data;
-        if (data.meta && data.meta.returned > 0) {
-          setNews(data.data);
-          setError(null);
-        } else {
-          throw new Error('No news found');
+        if (data.status !== 'success') {
+          throw new Error(data.message || 'Error fetching news');
         }
+        setNews(data.results);
+        setError(null);
       } catch (error) {
         setError(error.message);
         setNews(null);
@@ -111,8 +110,6 @@ const CountryNewsSearch = () => {
 
   const handleCountryClick = (country) => {
     setSelectedCountry(country.code);
-    setNews(null);
-    setError(null);
   };
 
   const handleSubmit = () => {
@@ -125,7 +122,7 @@ const CountryNewsSearch = () => {
   };
 
   return (
-    <div className="search-wrapper  w-100" id='GetNews'>
+    <div className="search-wrapper my-2 w-100" id='GetNews'>
       <div className="container-fluid search-news w-100">
         <div className="search-panel">
           <h1 className='text-light text-center'>Search World News</h1>
@@ -165,23 +162,21 @@ const CountryNewsSearch = () => {
         <div className="news-panel">
           {selectedCountry && (
             <div>
-              <h2>Here is what's happening in {countriesData.find(c => c.code === selectedCountry)?.name} in {selectedCategory}.</h2>
+              <h2>Here is what's happening in {selectedCountry} in {selectedCategory}.</h2>
               {error ? (
                 <p className="error">{error}</p>
               ) : (
                 news ? (
                   <div className="news-cards">
                     {news.map((article, index) => (
-                      <div key={article.uuid} className="news-card">
+                      <div key={index} className="news-card">
                         <a href={article.url} target="_blank" rel="noopener noreferrer">
                           <img
-                            src={article.image_url || 'default-image-url.jpg'}
+                            src={article.image || 'default-image-url.jpg'}
                             alt={article.title}
                             className="news-image"
                           />
                           <div className="news-title">{article.title}</div>
-                          <p className="news-description">{article.description}</p>
-                          <p className="news-source">{article.source}</p>
                         </a>
                       </div>
                     ))}
@@ -196,6 +191,6 @@ const CountryNewsSearch = () => {
       </div>
     </div>
   );
-};
+}
 
 export default CountryNewsSearch;
