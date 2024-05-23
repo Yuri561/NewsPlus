@@ -125,7 +125,7 @@ const CountryNewsSearch = () => {
   };
 
   return (
-    <div className="search-wrapper my-2 w-100" id='GetNews'>
+    <div className="search-wrapper  w-100" id='GetNews'>
       <div className="container-fluid search-news w-100">
         <div className="search-panel">
           <h1 className='text-light text-center'>Search World News</h1>
