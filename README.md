@@ -1,5 +1,8 @@
 News Plus
 News Plus is a React application that allows users to search for the latest news articles from various countries and categories using the News API.
+![Uploading image.png…]()
+
+
 
 Table of Contents
 Features
